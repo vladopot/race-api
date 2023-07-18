@@ -1,0 +1,46 @@
+.garage_form {
+    display: inline;
+}
+
+.winner_form {
+    display: inline;
+}
+
+.car_name_form {
+    position: relative;
+    margin-top: 20px;
+}
+
+.btn_type_3 {
+    position: relative;
+    margin-top: 15px;
+}
+
+.btn_type_4 {
+    position: relative;
+    margin-top: 15px;
+}
+
+h3 {
+    position: relative;
+    display: block;
+}
+
+.footer {
+    margin-top: 20px;
+}
+
+.del_sel_btns {
+    position: relative;
+}
+
+.control_btns {
+    position: relative;
+    margin-top: 10px;
+}
+
+.flag {
+    position: absolute;
+    background-image: url(../assets/formula-1.png);
+    background-size: 100%;
+}

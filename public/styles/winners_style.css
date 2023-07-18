@@ -1,0 +1,18 @@
+.garage_form {
+    display: inline;
+}
+
+.winner_form {
+    display: inline;
+}
+
+.table_head {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.table_head p {
+    border: 1px solid black;
+    text-align: center;
+}
