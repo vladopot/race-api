@@ -16,3 +16,25 @@
     border: 1px solid black;
     text-align: center;
 }
+
+.car {
+    position: relative;
+    display: grid;
+    margin: auto;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.car p {
+    border: 1px solid black;
+    text-align: center;
+    margin: 0;
+}
+
+.car_icon {
+    position: relative;
+    width: 75px;
+}
+
+.footer {
+    margin-top: 20px;
+}

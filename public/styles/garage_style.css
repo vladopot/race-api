@@ -32,6 +32,7 @@ h3 {
 
 .del_sel_btns {
     position: relative;
+    display: inline;
 }
 
 .control_btns {
@@ -41,6 +42,41 @@ h3 {
 
 .flag {
     position: absolute;
-    background-image: url(../assets/formula-1.png);
-    background-size: 100%;
+    height: 50px;
+    right: 0;
+    display: inline;
+}
+
+.flag img {
+    position: relative;
+    height: 50px;
+}
+
+.road {
+    position: relative;
+    width: 100%;
+    height: 0px;
+    border: 1px dashed #000;
+}
+
+.car {
+    position: relative;
+    margin-top: 7.5px;
+}
+
+.car-name {
+    position: relative;
+    display: inline;
+    margin-left: 20px;
+}
+
+.car_icon {
+    position: relative;
+    display: inline;
+}
+
+.car_icon img {
+    position: relative;
+    width: 75px;
+    margin-top: 20px;
 }
