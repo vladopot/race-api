@@ -33,10 +33,47 @@ function race() {
     });
 }
 
-create_btn?.addEventListener("click", request)
-const xhr = new XMLHttpRequest();
-function request() {
-    xhr.open("GET", requestURL);
-    console.log(JSON.parse(xhr.response));
-    xhr.send();
+const user = {
+    "name": "Sopatilie car",
+    "color": "#ef3c40",
+    "id": 5,
+};
+
+function del_request() {
+    return fetch(requestURL, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(user)
+    }).then((response) => {
+        return response.json();
+        })
 }
+
+del_request();
+
+function post_request() {
+    return fetch(requestURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(user)
+    }).then((response) => {
+        return response.json();
+        })
+}
+
+post_request();
+
+function request() {
+    return fetch(requestURL)
+        .then((response) => {
+                return response.json();
+            })
+}
+
+request()
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err));
