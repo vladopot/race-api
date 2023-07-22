@@ -27,7 +27,7 @@ h3 {
 }
 
 .footer {
-    margin-top: 20px;
+    margin-top: 60px;
 }
 
 .del_sel_btns {
@@ -42,30 +42,49 @@ h3 {
 
 .flag {
     position: absolute;
-    height: 50px;
+    height: 30px;
     right: 80px;
+    display: inline;
+}
+
+.flad_leg {
+    position: absolute;
+    height: 50px;
+    width: 2px;
+    right: 112px;
+    background-color: #505050;
     display: inline;
 }
 
 .flag img {
     position: relative;
-    height: 50px;
+    height: 30px;
 }
 
 .race {
-    left: calc(100% - 80px);
+    transform: translateX(100%);
+}
+
+.animation {
+    transition-property: transform;
+    transition-duration: 9s;
 }
 
 .road {
     position: relative;
     width: 100%;
+    top: 50px;
     height: 0px;
     border: 1px dashed #000;
 }
 
 .car {
     position: relative;
-    margin-top: 7.5px;
+    margin-top: 60px;
+}
+
+.first_car {
+    margin-top: 0px;
 }
 
 .car-name {
@@ -75,7 +94,7 @@ h3 {
 }
 
 .car_icon {
-    position: relative;
+    position: absolute;
     display: inline;
 }
 
