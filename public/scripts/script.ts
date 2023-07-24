@@ -6,7 +6,9 @@ let requestURL:string = 'http://127.0.0.1:3000/garage';
 let cars_names:string[] = ["mersedes", "renault", "audi", "BMW", "crysler", "jaguar", "Range Rover", "Porshe", "MClaren", "Maseratti", "SAAB", "Ferrari", "Lamborgini", "KIA", "Huindai"];
 let btn_cars_generator = document.querySelector(".btn_cars_generator");
 let stop_btn = document.querySelectorAll(".stop_emgine_btn");
-let remove_btn = document.querySelector(".remove_btn");
+let remove_btn = document.querySelectorAll(".remove_btn");
+let btn_prev = document.querySelector(".btn_prev");
+let btn_next = document.querySelector(".btn_next");
 
 function handler() {
     stop_btn.forEach((e) => {
@@ -21,21 +23,55 @@ function handler() {
     btn_reset?.addEventListener("click", reset);
     btn_cars_generator?.addEventListener("click", () => {return cars_generator(100)});
     create_btn?.addEventListener("click", () => {return cars_generator(1)});
-    remove_btn?.addEventListener("click", () => {return del()});
+    remove_btn.forEach((e) => {
+        const temp: HTMLElement = <HTMLElement>e;
+        temp?.addEventListener("click", del);
+    });
+    btn_next?.addEventListener("click", next_page);
+    btn_prev?.addEventListener("click", previous_page);
 }
 
 function cars_viewer(page:number = 1) {
     request()
         .then((data) => {
+            let cars_to_remove = document.querySelectorAll(".car");
+            cars_to_remove.forEach((e) => {
+                const temp:HTMLElement = <HTMLElement>e;
+                temp.remove();
+            });
             const temp:HTMLElement = <HTMLElement>document.querySelector(".cars_number");
             temp.innerHTML = `GARAGE ${data.length}`;
+            temp.dataset.page = `${page}`;
             const page_number:HTMLElement = <HTMLElement>document.querySelector(".page_number");
             const footer:HTMLElement = <HTMLElement>document.querySelector(".footer");
-            for (let i = page * 10 - 1; i < page * 20 -1; i++) {
-                footer?.insertAdjacentHTML("beforebegin", `<div class="car" data-car-num="${data[i].id}" data-car-color="${data[i].color}">
+            if (data.length < 10) {
+                for (let i = 0; i < data.length; i++) {
+                    footer.insertAdjacentHTML("beforebegin", `<div class="car" data-car-num="${data[i].id}" data-car-color="${data[i].color}">
+                    <div class="del_sel_btns">
+                        <button class="select_btn" data-car-num="${data[i].id}">SELECT</button>
+                        <button class="remove_btn" data-car-num="${data[i].id}">REMOVE</button>
+                    </div>
+                    <p class="car-name">${data[i].name}</p>
+                    <div class="control_btns">
+                        <button class="start_engine_btn" data-car-num="${data[i].id}">Start<br>engine</button>
+                        <button class="stop_emgine_btn" data-car-num="${data[i].id}">Stop<br>engine</button>
+                    </div>
+                    <div class="car_icon" data-car-num="${data[i].id}">
+                        <img src="assets/car_icon.jpg">
+                    </div>
+                    <div class="flag">
+                        <img src="assets/formula-1.png" alt="flag">
+                    </div>
+                    <div class="flad_leg"></div>
+                    <div class="road"></div>
+                </div>`);
+                }
+            } else {
+                for (let i = page * 10 - 1; i > page * 10 - 11; i--) {
+                    page_number?.insertAdjacentHTML("afterend", `<div class="car" data-car-num="${data[i].id}" data-car-color="${data[i].color}">
                 <div class="del_sel_btns">
-                    <button class="select_btn">SELECT</button>
-                    <button class="remove_btn">REMOVE</button>
+                    <button class="select_btn" data-car-num="${data[i].id}">SELECT</button>
+                    <button class="remove_btn" data-car-num="${data[i].id}">REMOVE</button>
                 </div>
                 <p class="car-name">${data[i].name}</p>
                 <div class="control_btns">
@@ -52,6 +88,8 @@ function cars_viewer(page:number = 1) {
                 <div class="road"></div>
             </div>`)
             }
+            }
+            
             page_number.innerHTML = `PAGE #${page}`;
             document.querySelector(".car")?.classList.add("first_car");
             start_buttons = document.querySelectorAll(".start_engine_btn");
@@ -60,7 +98,7 @@ function cars_viewer(page:number = 1) {
             btn_reset = document.querySelector(".btn_reset")
             btn_cars_generator = document.querySelector(".btn_cars_generator");
             stop_btn = document.querySelectorAll(".stop_emgine_btn");
-            remove_btn = document.querySelector(".remove_btn");
+            remove_btn = document.querySelectorAll(".remove_btn");
             handler();
         })
 }
@@ -71,6 +109,16 @@ interface car {
     name: string;
     color: string;
     id: number;
+}
+
+function next_page() {
+    let page_number = (document.querySelector(".cars_number") as HTMLElement).dataset.page;
+    cars_viewer(Number(page_number) + 1);
+}
+
+function previous_page() {
+    let page_number = (document.querySelector(".cars_number") as HTMLElement).dataset.page;
+    cars_viewer(Number(page_number) - 1);
 }
 
 function start_engine() {
@@ -184,9 +232,8 @@ function POST_method(user: car) {
 
 function del() {
     let targ = arguments[0].target;
-    let targ_num = targ.dataset.dataset.carNum;
-    let cars = document.querySelectorAll(".car");
-    let del_car:HTMLElement;
+    console.log(targ);
+    let targ_num = targ.dataset.carNum;
     return fetch(`${requestURL}/${targ_num}`, {
         method: 'DELETE',
         headers: {
